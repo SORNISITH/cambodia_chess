@@ -1,11 +1,11 @@
 CC = gcc
-CFLAGS = "-I./lib/include" 
-LIBS   = "-L./lib/lib" 
+CFLAGS = "-Ilib/include"
+LIBS   = "-L./lib/lib"
 SLIB   = "-l:libraylib.a"
 all: main
 
-main: main.c
-	$(CC) -Wall main.c $(CFLAGS) $(LIBS) $(SLIB) -lm -o main && main
+main: main.c 
+	$(CC) -Wall -std=c23 board.c layout.c main.c $(CFLAGS) $(LIBS) $(SLIB)   -lm -o main && main
 
 clean:
 	rm -f main
