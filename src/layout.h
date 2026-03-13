@@ -2,5 +2,5 @@
 #define LAYOUT_H
 
 void layout_init();
-void layout_display();
+void layout_display_1();
 #endif

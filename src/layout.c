@@ -2,6 +2,11 @@
 #include "board.h"
 #include "global_main.h"
 #include "raylib.h"
+#include <stdio.h>
+
+extern struct SQ_CELL board_cell[ROW][COL];
+extern Vector2 board_sq_size;
+extern Vector2 board_sq_init_position;
 
 float get_h_percent(float percent)
 {
@@ -11,32 +16,37 @@ float get_w_percent(float percent)
 {
     return percent / 100 * SCREEN_WIDTH;
 }
+
 struct Layout_Position {
-    Vector2 pos;
-    float w;
-    float h;
+    Vector2 start_pos;
+    Vector2 size;
 };
+struct Layout_Position Position_Layout_1[3];
+
+void layout_generate(struct Layout_Position* pl, int element_count)
+{
+    int element[] = { 10, 80, 10 };
+    for (int i = 0; i < element_count; ++i) {
+        pl[i].start_pos.x = 0;
+        pl[i].size.x = SCREEN_WIDTH;
+        pl[i].size.y = get_h_percent(element[i]);
+        if (i == 0) {
+            pl[i].start_pos.y = 0;
+        } else {
+            pl[i].start_pos.y = pl[i - 1].start_pos.y + pl[i - 1].size.y;
+        }
+    }
+    board_initilize_position(pl[1].start_pos, pl[1].size);
+}
 
 void layout_init()
 {
-    int element[] = { 10, 80, 10 };
-    int s = sizeof(element) / sizeof(element[0]);
-    struct Layout_Position lay[s];
-
-    for (int i = 0; i < s; ++i) {
-        lay[i].pos.x = 0;
-        lay[i].w = SCREEN_WIDTH;
-        lay[i].h = get_h_percent(element[i]);
-        if (i == 0) {
-            lay[i].pos.y = 0;
-        } else {
-            lay[i].pos.y = lay[i - 1].pos.y + lay[i - 1].h;
-        }
-    }
-    board_initilize_position(lay[1].pos, lay[1].w, lay[1].h);
+    layout_generate(Position_Layout_1, 3);
 }
 
-void layout_display()
+void layout_display_1()
 {
+    DrawRectangleV(Position_Layout_1[0].start_pos, Position_Layout_1[0].size, RED);
     board_display_grid();
+    DrawRectangleV(Position_Layout_1[2].start_pos, Position_Layout_1[2].size, RED);
 }
