@@ -2,7 +2,6 @@
 #include "board.h"
 #include "global_main.h"
 #include "raylib.h"
-#include <stdio.h>
 
 extern struct SQ_CELL board_cell[ROW][COL];
 extern Vector2 board_sq_size;
@@ -12,6 +11,7 @@ float get_h_percent(float percent)
 {
     return percent / 100 * SCREEN_HEIGH;
 }
+
 float get_w_percent(float percent)
 {
     return percent / 100 * SCREEN_WIDTH;
@@ -21,6 +21,7 @@ struct Layout_Position {
     Vector2 start_pos;
     Vector2 size;
 };
+
 struct Layout_Position Position_Layout_1[3];
 
 void layout_generate(struct Layout_Position* pl, int element_count)
@@ -47,6 +48,7 @@ void layout_init()
 void layout_display_1()
 {
     DrawRectangleV(Position_Layout_1[0].start_pos, Position_Layout_1[0].size, RED);
+    DrawText("Cambodia Chess", 0, 0, 20, BLACK);
     board_display_grid();
     DrawRectangleV(Position_Layout_1[2].start_pos, Position_Layout_1[2].size, RED);
 }

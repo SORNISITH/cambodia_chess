@@ -4,11 +4,15 @@
 #include "raylib.h"
 #include <stdlib.h>
 
+extern Vector2 board_cell_size;
+extern struct SQ_CELL board_cell[ROW][COL];
+
 int main(int argc, char* argv[])
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGH, "KHMER CHESS");
-    SetTargetFPS(60);
     layout_init();
+
+    SetTargetFPS(60);
     int current_layout = 1;
 
     while (!WindowShouldClose()) {

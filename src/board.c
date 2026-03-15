@@ -2,8 +2,8 @@
 #include "global_main.h"
 #include "raylib.h"
 #include "string.h"
-// struct SQ_CELL board_cell[ROW][COL];
-struct BOARD main_board;
+struct SQ_CELL board_cell[ROW][COL];
+
 enum {
     MODE_SELECTION,
     MODE_VIEW,
@@ -11,8 +11,8 @@ enum {
 int mode = MODE_VIEW;
 
 Vector2 board_sq_size;
-Vector2 board_cell_size;
 Vector2 board_sq_init_position;
+Vector2 board_cell_size;
 
 void board_set_kon_ouk(int row, int col, struct KON_OUK kon)
 {
@@ -30,6 +30,7 @@ void board_position_cell(Vector2 v_start, Vector2 v_size)
         for (int i = 0; i < COL; ++i) {
             char tmp_letter = charactor;
             char tmp_id = i + '0';
+            // colorize
             if (((i + j) & 1) == 0) {
                 cell.color = BOARD_COLOR_1;
             } else {
@@ -39,14 +40,17 @@ void board_position_cell(Vector2 v_start, Vector2 v_size)
             cell.center.y = cell.pos.y + (cell.size.y / 2);
             cell.is_occupy = false;
             cell.is_select = false;
+            // square use
             cell.sqare.x = cell.pos.x;
             cell.sqare.y = cell.pos.y;
             cell.sqare.width = cell.size.x;
             cell.sqare.height = cell.size.y;
+            // point use
             cell.point.a = cell.pos;
             cell.point.b = (Vector2) { cell.pos.x + cell.sqare.width, cell.pos.y };
             cell.point.c = (Vector2) { cell.pos.x + cell.sqare.width, cell.pos.y + cell.sqare.height };
             cell.point.d = (Vector2) { cell.pos.x, cell.pos.y + cell.sqare.height };
+            // id
             cell.id[0] = tmp_letter;
             cell.id[1] = tmp_id;
             cell.id[2] = '\0';

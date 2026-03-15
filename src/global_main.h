@@ -58,12 +58,4 @@ struct SQ_CELL {
     struct KON_OUK kon_ouk;
 };
 
-struct BOARD {
-    union {
-        struct SQ_CELL board_grids[8][8];
-        struct SQ_CELL board_cells[64];
-        unsigned char raw[sizeof(struct SQ_CELL) * 32];
-    };
-};
-
 #endif // end my main
